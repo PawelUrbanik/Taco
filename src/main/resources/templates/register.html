@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rejestracja nowego użytkownika</title>
+</head>
+<body>
+<h1>Zarejestruj nowego użytkownika</h1>
+<!--/*@thymesVar id="user" type="pl.springinaction.tacocloud.model.User"*/-->
+<form th:action="@{/register}" method="post" th:object="${user}">
+    <label for="username">E-mail: </label>
+    <input type="text" th:field="*{username}" id="username"><br>
+
+    <label for="password">Hasło: </label>
+    <input type="text" th:field="*{password}" id="password"><br>
+
+    <label for="phone">Numer telefonu: </label>
+    <input type="text" th:field="*{phone}" id="phone"><br>
+
+    <input type="submit" value="Zarejestruj">
+
+</form>
+</body>
+</html>

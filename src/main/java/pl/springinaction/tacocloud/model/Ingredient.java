@@ -1,18 +1,18 @@
 package pl.springinaction.tacocloud.model;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-import java.lang.reflect.Type;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Data
 @RequiredArgsConstructor
+@NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
+@Entity
 public class Ingredient {
-
+    @Id  private final String id;
     private final String name;
-    private final String id;
     private final IngrType type;
-    public static enum IngrType{
-        WRAP, PROTEIN, VEGIES, CHEESE, SAUCE
-    }
-}
+
+    public static enum IngrType {    WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE  } }
+

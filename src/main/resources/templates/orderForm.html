@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Form</title>
+</head>
+<body>
+
+<form th:action="@{/orders}" method="post" th:object="${order}">
+    <h1>Zamów przygotowane Taco</h1>
+    <a th:href="@{/design}" id="another">Zamów kolejne</a><br>
+    <div th:if="${#fields.hasErrors()}">
+        <span>
+            Usuń wymienione problemy i spróbuj ponownie.
+        </span>
+    </div>
+
+    <h3>Adres dostarczenia</h3>
+    <label for="firstname" >Imię:  </label>
+    <input type="text" id="firstname" th:field="*{firstname}"/></br>
+
+    <label for="lastname" >Nazwisko:  </label>
+    <input type="text" id="lastname" th:field="*{lastname}"/></br>
+
+    <label for="city" >Miasto:  </label>
+    <input type="text" id="city" th:field="*{city}"/></br>
+
+    <label for="ccNumber" >Numer karty kredytowej:  </label>
+    <input type="text" id="ccNumber" th:field="*{ccNumber}"/></br>
+    <span th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">Błędy numeru karty kredytowej</span>
+
+    <br>
+    <label for="ccCVV" >Kod CVV karty kredytowej:  </label>
+    <input type="text" id="ccCVV" th:field="*{ccCVV}"/></br>
+
+    <input type="submit" value="Złóż zamówienie">
+</form>
+
+
+</body>
+</html>

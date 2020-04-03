@@ -9,10 +9,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import pl.springinaction.tacocloud.controller.HomeController;
+import pl.springinaction.tacocloud.controller.DesignTacoController;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(HomeController.class)
+@WebMvcTest(DesignTacoController.class)
 public class HomeControllerTest {
 
     @Autowired
@@ -21,9 +21,9 @@ public class HomeControllerTest {
     @Test
     public void testHomepage() throws Exception
     {
-        mockMvc.perform(MockMvcRequestBuilders.get("/home"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/design"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("home"))
-                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("application")));
+                .andExpect(MockMvcResultMatchers.view().name("create_own"))
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("sałata")));
     }
 }

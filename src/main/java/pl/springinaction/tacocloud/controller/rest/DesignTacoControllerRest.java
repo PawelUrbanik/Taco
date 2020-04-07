@@ -1,5 +1,6 @@
 package pl.springinaction.tacocloud.controller.rest;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -88,5 +89,17 @@ public class DesignTacoControllerRest {
         }
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTaco(@PathVariable("id") Long id)
+    {
+        Optional<Taco> foundTaco = tacoRepository.findById(id);
+        if (foundTaco.isPresent())
+        {
+            tacoRepository.delete(foundTaco.get());
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }

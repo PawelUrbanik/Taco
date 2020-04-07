@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.springinaction.tacocloud.model.Taco;
 import pl.springinaction.tacocloud.repository.TacoRepository;
 
+import javax.websocket.server.PathParam;
 import java.util.Optional;
 
 @RestController
@@ -44,4 +45,48 @@ public class DesignTacoControllerRest {
     {
         return tacoRepository.save(taco);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateTaco( @RequestBody Taco taco, @PathVariable("id") Long id)
+    {
+        Optional<Taco> foundTaco =tacoRepository.findById(id);
+        if (foundTaco.isPresent())
+        {
+            return new ResponseEntity<>(tacoRepository.save(taco), HttpStatus.CREATED);
+        }
+        else
+        {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> upadtePartial(@RequestBody Taco taco, @PathVariable("id") Long id)
+    {
+        Optional<Taco> foundTaco = tacoRepository.findById(id);
+        System.out.println(taco.getIngredients());
+        System.out.println(foundTaco.get().getIngredients());
+        if (foundTaco.isPresent())
+        {
+            if (taco.getId() != null)
+            {
+                foundTaco.get().setId(taco.getId());
+            }
+            if (taco.getName() != null)
+            {
+                foundTaco.get().setName(taco.getName());
+            }
+            if (taco.getIngredients() != null)
+            {
+               taco.getIngredients().forEach(ingredient -> foundTaco.get().getIngredients().add(ingredient));
+            }
+            tacoRepository.save(foundTaco.get());
+            return new ResponseEntity<>(taco, HttpStatus.CREATED);
+        }else
+        {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 }

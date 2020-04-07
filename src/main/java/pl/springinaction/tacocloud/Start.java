@@ -11,6 +11,7 @@ import pl.springinaction.tacocloud.repository.UserRepository;
 import pl.springinaction.tacocloud.service.UserService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -27,12 +28,26 @@ public class Start {
         user.setPhone("12312312");
         userService.addUSer(user);
 
-        List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient("FIFE", "pszenna", Ingredient.IngrType.WRAP));
-        ingredients.add(new Ingredient("BEAF", "Kukurydziana", Ingredient.IngrType.PROTEIN));
+        List<Ingredient> ingredients = Arrays.asList(
+                new Ingredient("FLTO", "pszenna", Ingredient.IngrType.WRAP),
+                new Ingredient("COCO", "Kukurydziana", Ingredient.IngrType.WRAP),
+                new Ingredient("GRBF", "mielona wołowina ", Ingredient.IngrType.PROTEIN),
+                new Ingredient("CARN", "kawałki mięsa", Ingredient.IngrType.PROTEIN),
+                new Ingredient("TMTO", "pomidory pokrojone w kostkę", Ingredient.IngrType.VEGGIES),
+                new Ingredient("LETC", "sałata", Ingredient.IngrType.VEGGIES),
+                new Ingredient("CHED", "cheddar", Ingredient.IngrType.CHEESE),
+                new Ingredient("JACK", "Monterey Jack", Ingredient.IngrType.CHEESE),
+                new Ingredient("SLSA", "pikantny sos pomidorowy", Ingredient.IngrType.SAUCE),
+                new Ingredient("SRCR", "śmietana", Ingredient.IngrType.SAUCE)
+
+        );
         ingredients.forEach(e -> ingredientRepository.save(e));
+        List<Ingredient> ingredientsForTaco = new ArrayList<>();
+        ingredientsForTaco.add(ingredients.get(1));
+        ingredientsForTaco.add(ingredients.get(2));
+        ingredientsForTaco.add(ingredients.get(3));
         Taco taco = new Taco();
-        taco.setIngredients(ingredients);
+        taco.setIngredients(ingredientsForTaco);
         taco.setName("Name");
         tacoRepository.save(taco);
 

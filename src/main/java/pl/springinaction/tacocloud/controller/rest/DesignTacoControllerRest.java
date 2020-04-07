@@ -1,6 +1,5 @@
 package pl.springinaction.tacocloud.controller.rest;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -37,5 +36,12 @@ public class DesignTacoControllerRest {
             return new ResponseEntity<>(taco.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping(consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Taco addTacoToRepo(@RequestBody Taco taco)
+    {
+        return tacoRepository.save(taco);
     }
 }

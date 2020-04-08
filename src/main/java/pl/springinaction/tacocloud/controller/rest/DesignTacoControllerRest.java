@@ -1,16 +1,19 @@
 package pl.springinaction.tacocloud.controller.rest;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.springinaction.tacocloud.model.Taco;
 import pl.springinaction.tacocloud.repository.TacoRepository;
 
-import javax.websocket.server.PathParam;
 import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping(path = "/design", produces = "application/json")
@@ -24,9 +27,9 @@ public class DesignTacoControllerRest {
     }
 
     @GetMapping("/recent")
-    public Iterable<Taco>  recentTacos(){
+    public ResponseEntity<?> recentTacos(){
         PageRequest page = PageRequest.of(0, 12, Sort.by("name").descending());
-        return tacoRepository.findAll(page).getContent();
+        return new ResponseEntity<>(tacoRepository.findAll(page).getContent(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

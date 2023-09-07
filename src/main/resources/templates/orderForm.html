@@ -16,22 +16,22 @@
     </div>
 
     <h3>Adres dostarczenia</h3>
-    <label for="firstname" >Imię:  </label>
-    <input type="text" id="firstname" th:field="*{firstname}"/></br>
+    <label for="firstname">Imię: </label>
+    <input type="text" id="firstname" th:field="*{firstname}"/><br>
 
-    <label for="lastname" >Nazwisko:  </label>
-    <input type="text" id="lastname" th:field="*{lastname}"/></br>
+    <label for="lastname">Nazwisko: </label>
+    <input type="text" id="lastname" th:field="*{lastname}"/><br>
 
-    <label for="city" >Miasto:  </label>
-    <input type="text" id="city" th:field="*{city}"/></br>
+    <label for="city">Miasto: </label>
+    <input type="text" id="city" th:field="*{city}"/><br>
 
-    <label for="ccNumber" >Numer karty kredytowej:  </label>
-    <input type="text" id="ccNumber" th:field="*{ccNumber}"/></br>
+    <label for="ccNumber">Numer karty kredytowej: </label>
+    <input type="text" id="ccNumber" th:field="*{ccNumber}"/><br>
     <span th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">Błędy numeru karty kredytowej</span>
 
     <br>
-    <label for="ccCVV" >Kod CVV karty kredytowej:  </label>
-    <input type="text" id="ccCVV" th:field="*{ccCVV}"/></br>
+    <label for="ccCVV">Kod CVV karty kredytowej: </label>
+    <input type="text" id="ccCVV" th:field="*{ccCVV}"/><br>
 
     <input type="submit" value="Złóż zamówienie">
 </form>

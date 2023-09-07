@@ -8,6 +8,8 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
@@ -22,10 +24,10 @@ public class Taco extends RepresentationModel<Taco> {
     private Long id;
 
     //TODO message from properties file
-//    @NotNull
-//    @Size(min = 5, message = "Nazwa musi posiadać przynajmniej 5 znaków")
+    @NotNull
+    @Size(min = 5, message = "Nazwa musi posiadać przynajmniej 5 znaków")
     private String name;
-//    @NotNull
+//    @Size(min = 1, message = "Musisz wybrać przynajmniej jeden składnik")
     @ManyToMany(targetEntity = Ingredient.class)
     private List<Ingredient> ingredients;
 }

@@ -48,7 +48,7 @@ public class Start {
         ingredientsForTaco.add(ingredients.get(3));
         Taco taco = new Taco();
         taco.setIngredients(ingredientsForTaco);
-        taco.setName("Name");
+        taco.setName("Name1");
         tacoRepository.save(taco);
 
     }

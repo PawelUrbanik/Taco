@@ -17,21 +17,30 @@
 
     <h3>Adres dostarczenia</h3>
     <label for="firstname">Imię: </label>
-    <input type="text" id="firstname" th:field="*{firstname}"/><br>
+    <input type="text" id="firstname" th:field="*{firstname}"/>
+    <span class="validationError" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Błędy imienia</span>
+    <br>
 
     <label for="lastname">Nazwisko: </label>
-    <input type="text" id="lastname" th:field="*{lastname}"/><br>
+    <input type="text" id="lastname" th:field="*{lastname}"/>
+    <span class="validationError" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Błędy nazwiska</span>
+    <br>
 
     <label for="city">Miasto: </label>
-    <input type="text" id="city" th:field="*{city}"/><br>
+    <input type="text" id="city" th:field="*{city}"/>
+    <span class="validationError" th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">Błędy numeru karty kredytowej</span>
+    <br>
 
     <label for="ccNumber">Numer karty kredytowej: </label>
     <input type="text" id="ccNumber" th:field="*{ccNumber}"/><br>
-    <span th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">Błędy numeru karty kredytowej</span>
+    <span class="validationError" th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">Błędy numeru karty kredytowej</span>
 
     <br>
     <label for="ccCVV">Kod CVV karty kredytowej: </label>
-    <input type="text" id="ccCVV" th:field="*{ccCVV}"/><br>
+    <input type="text" id="ccCVV" th:field="*{ccCVV}"/>
+    <span class="validationError" th:if="${#fields.hasErrors('ccCVV')}" th:errors="*{ccCVV}">Błąd CVV karty</span>
+
+    <span class="validationError" th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">Błędy numeru karty kredytowej</span>
 
     <input type="submit" value="Złóż zamówienie">
 </form>

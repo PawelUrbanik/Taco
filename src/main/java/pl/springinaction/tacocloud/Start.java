@@ -10,8 +10,10 @@ import pl.springinaction.tacocloud.repository.TacoRepository;
 import pl.springinaction.tacocloud.repository.UserRepository;
 import pl.springinaction.tacocloud.service.UserService;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Configuration
@@ -47,6 +49,7 @@ public class Start {
         ingredientsForTaco.add(ingredients.get(2));
         ingredientsForTaco.add(ingredients.get(3));
         Taco taco = new Taco();
+        taco.setCreatedAt(Date.from(Instant.now()));
         taco.setIngredients(ingredientsForTaco);
         taco.setName("Name1");
         tacoRepository.save(taco);

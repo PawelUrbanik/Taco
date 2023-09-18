@@ -10,6 +10,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,6 +23,7 @@ public class Order{
     @Id
     @GeneratedValue
     private Long id;
+    private Date placedAt;
     @NotBlank(message = "To pole jest obowiązkowe")
     @Size(min = 3)
     private String firstname;

@@ -33,4 +33,9 @@ public class Taco extends RepresentationModel<Taco> {
 //    @Size(min = 1, message = "Musisz wybrać przynajmniej jeden składnik")
     @ManyToMany(targetEntity = Ingredient.class)
     private List<Ingredient> ingredients;
+
+    @PrePersist
+    void createdAt(){
+        this.createdAt = new Date();
+    }
 }

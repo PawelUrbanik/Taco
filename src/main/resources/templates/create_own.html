@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Przygotuj własne taco!</h1>
-<form method="POST" th:object="${design}">
+<form method="POST" th:action="@{/design}" th:object="${design}">
 
     <span class="validationError"
           th:if="${#fields.hasErrors('ingredients')}"

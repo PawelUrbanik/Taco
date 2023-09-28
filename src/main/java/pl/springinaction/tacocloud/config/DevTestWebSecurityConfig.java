@@ -8,18 +8,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.springinaction.tacocloud.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-@Profile("prod")
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+@Profile({"dev", "test"})
+public class DevTestWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
@@ -27,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getEncoder(){ return new BCryptPasswordEncoder();};
 
     @Autowired
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl) {
+    public DevTestWebSecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
     }
 
@@ -42,8 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.headers().disable();
         http.authorizeRequests()
                 .antMatchers("/design", "/orders/current").authenticated()
                 .antMatchers("/").permitAll()

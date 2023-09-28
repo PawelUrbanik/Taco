@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "pawel.own.property",
+      "type": "java.lang.Long",
+      "description": "Add your own property"
+  }
+] }

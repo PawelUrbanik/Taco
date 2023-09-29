@@ -8,12 +8,15 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.springinaction.tacocloud.model.Ingredient;
 import pl.springinaction.tacocloud.model.Taco;
 import pl.springinaction.tacocloud.repository.TacoRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping(path = "/design", produces = "application/json")
@@ -26,10 +29,26 @@ public class DesignTacoControllerRest {
         this.tacoRepository = tacoRepository;
     }
 
-    @GetMapping("/recent")
-    public ResponseEntity<?> recentTacos(){
+    @GetMapping(value = "/recent", produces = { "application/hal+json" })
+    public CollectionModel<Taco> recentTacos(){
         PageRequest page = PageRequest.of(0, 12, Sort.by("name").descending());
-        return new ResponseEntity<>(tacoRepository.findAll(page).getContent(), HttpStatus.OK);
+        final List<Taco> tacos= tacoRepository.findAll(page).getContent();
+        for (final Taco taco: tacos) {
+            Link selfLink = linkTo(methodOn(DesignTacoControllerRest.class)
+                    .getOneTaco(taco.getId())).withSelfRel();
+            taco.add(selfLink);
+            for (final Ingredient ingredient: taco.getIngredients()) {
+                Link ingredientSelfLink = linkTo(methodOn(IngredientRestController.class).getOne(ingredient.getId())).withSelfRel();
+                ingredient.add(ingredientSelfLink);
+            }
+        }
+
+        Link link = linkTo(methodOn(DesignTacoControllerRest.class)
+                .recentTacos()).withSelfRel();
+
+        CollectionModel<Taco> result = new CollectionModel<>(tacos, link);
+        return result;
+
     }
 
     @GetMapping("/{id}")
@@ -93,6 +112,7 @@ public class DesignTacoControllerRest {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> deleteTaco(@PathVariable("id") Long id)
     {
         Optional<Taco> foundTaco = tacoRepository.findById(id);

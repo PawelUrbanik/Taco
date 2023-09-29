@@ -3,7 +3,6 @@ package pl.springinaction.tacocloud.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.rest.core.annotation.Description;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.hateoas.RepresentationModel;
 
